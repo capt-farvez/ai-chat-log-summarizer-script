@@ -8,6 +8,8 @@ AI Chat Log Summarizer is a Python-based tool that reads chat logs between a use
 - Count the total number of messages, user messages, and AI messages.
 - Extract the top 5 most frequently used keywords, excluding common stopwords.
 - Automatically determines the main topics of the conversation.
+- Handles multiple chat logs from a directory.
+- Generates a summary report for each chat log.
 
 ## Requirements
 - Python 3
@@ -58,4 +60,10 @@ Chat Summary:
 ```
 
 ## Screenshot
+- For Single Chat Log
+
 ![alt text](image.png)
+
+- For Multiple Chat Logs from a directory
+
+![alt text](image-1.png)
