@@ -1,0 +1,8 @@
+User: Hello! Can you help me with Java?
+AI: Of course! What do you want to know about Java?
+User: Is Java good for web development?
+AI: Yes, Java is commonly used for enterprise-level web development using frameworks like Spring.
+User: What about mobile apps?
+AI: Java is also used for Android app development.
+User: Can I use Java for data science?
+AI: It's possible, but Python is more popular for data science.
