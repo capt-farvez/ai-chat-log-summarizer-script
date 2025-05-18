@@ -1,0 +1,6 @@
+User: Hi, can you tell me about Python? is is is is is is is is is .
+AI: Sure! Python is a popular programming language known for its readability.
+User: What can I use it for?
+AI: You can use Python for web development, data analysis, AI, and more.
+User: Can you explain what machine learning is?
+AI: Certainly! Machine learning is a field of AI that allows systems to learn from data.
