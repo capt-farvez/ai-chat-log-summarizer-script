@@ -1,6 +1,8 @@
 import os
 import nltk
 from nltk.corpus import stopwords
+import re
+from collections import Counter
 
 # Ensure stopwords are downloaded
 nltk.download('stopwords')
@@ -24,6 +26,20 @@ def parse_chat_log(file_path=CHAT_LOG_PATH):
 
     return user_messages, ai_messages
 
+def get_keywords(messages):
+    all_text = ' '.join(messages).lower()
+    words = re.findall(r"\b\w+\b", all_text)
+    # Remove stopwords 
+    filtered_words = []
+    for word in words:
+        if word in STOPWORDS:
+            continue
+        else:
+            filtered_words.append(word)
+    # Count word frequencies
+    keyword_counts = Counter(filtered_words)
+    return keyword_counts.most_common(5)
+
 
 if __name__ == "__main__":
     if os.path.exists(CHAT_LOG_PATH):
@@ -32,11 +48,30 @@ if __name__ == "__main__":
         print(f"Total messages: {len(user_messages) + len(ai_messages)}")
         print(f"User messages: {len(user_messages)}")
         print(f"AI messages: {len(ai_messages)}")
+        
         print("\nUser Messages:")
         for msg in user_messages:
             print(f"- {msg}")
+        
         print("\nAI Messages:")
         for msg in ai_messages:
             print(f"- {msg}")
+
+        #  Get keywords
+        print("\nTop 5 Keywords from User Messages:")
+        user_keywords = get_keywords(user_messages)
+        for word, count in user_keywords:
+            print(f"{word}: {count}")
+
+        print("\nTop 5 Keywords from AI Messages:")
+        ai_keywords = get_keywords(ai_messages)
+        for word, count in ai_keywords:
+            print(f"{word}: {count}")
+
+        print("\nTop 5 Keywords Overall:")
+        overall_keywords = get_keywords(user_messages + ai_messages)
+        for word, count in overall_keywords:
+            print(f"{word}: {count}")
+
     else:
         print("Error: File not found. Make sure chat.txt is in the same directory.")
