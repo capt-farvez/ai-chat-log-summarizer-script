@@ -40,38 +40,22 @@ def get_keywords(messages):
     keyword_counts = Counter(filtered_words)
     return keyword_counts.most_common(5)
 
+def summarize_chat(file_path=CHAT_LOG_PATH):
+    user_messages = parse_chat_log(file_path)[0]
+    ai_messages = parse_chat_log(file_path)[1]
+
+    user_messages_count = len(user_messages)
+    ai_messages_count = len(ai_messages)
+    total_messages = user_messages_count + ai_messages_count
+    keywords = get_keywords(user_messages + ai_messages)
+
+    print("\nChat Summary:")
+    print(f"- The conversation had {total_messages} exchanges. Where User sent {user_messages_count} messages and AI sent {ai_messages_count} messages.")
+    print(f"- The user asked mainly about {keywords[0][0]} and {keywords[1][0]}.")
+    print(f"- Most common keywords:", ', '.join([f"{word[0]}" for word in keywords]) , ".")
 
 if __name__ == "__main__":
     if os.path.exists(CHAT_LOG_PATH):
-        user_messages = parse_chat_log(CHAT_LOG_PATH)[0]
-        ai_messages = parse_chat_log(CHAT_LOG_PATH)[1]
-        print(f"Total messages: {len(user_messages) + len(ai_messages)}")
-        print(f"User messages: {len(user_messages)}")
-        print(f"AI messages: {len(ai_messages)}")
-        
-        print("\nUser Messages:")
-        for msg in user_messages:
-            print(f"- {msg}")
-        
-        print("\nAI Messages:")
-        for msg in ai_messages:
-            print(f"- {msg}")
-
-        #  Get keywords
-        print("\nTop 5 Keywords from User Messages:")
-        user_keywords = get_keywords(user_messages)
-        for word, count in user_keywords:
-            print(f"{word}: {count}")
-
-        print("\nTop 5 Keywords from AI Messages:")
-        ai_keywords = get_keywords(ai_messages)
-        for word, count in ai_keywords:
-            print(f"{word}: {count}")
-
-        print("\nTop 5 Keywords Overall:")
-        overall_keywords = get_keywords(user_messages + ai_messages)
-        for word, count in overall_keywords:
-            print(f"{word}: {count}")
-
+        summarize_chat(CHAT_LOG_PATH)
     else:
         print("Error: File not found. Make sure chat.txt is in the same directory.")
